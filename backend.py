@@ -9,6 +9,7 @@ app = Flask(__name__)
 # Secret key for signing licenses - KEEP THIS PRIVATE!
 SECRET_KEY = b"m:B.+$=e&1]915iMp.QW.}Fmy*31!:L"  # Use your own secure key here
 
+
 def validate_license_key(key):
     """
     Validate license key string.
@@ -32,6 +33,7 @@ def validate_license_key(key):
 
     return True, expiry_timestamp
 
+
 @app.route('/validate', methods=['POST'])
 def validate():
     data = request.get_json()
@@ -44,9 +46,12 @@ def validate():
     else:
         return jsonify({"valid": False, "error": result})
 
-@app.route("/api/status", methods=['GET'])
+
+# Status endpoint to check if API is running
+@app.route("/api/status")
 def status():
-    return jsonify({"status": "ok"})
+    return {"status": "ok"}
+
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
